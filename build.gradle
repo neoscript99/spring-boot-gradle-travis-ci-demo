@@ -1,20 +1,28 @@
-group 'com.test'
-version '1.0-SNAPSHOT'
-
 buildscript {
-    repositories {
-        maven { url "http://repo.spring.io/libs-snapshot" }
-        mavenCentral()
+    ext {
+        springBootVersion = '1.5.4.RELEASE'
+        gormVersion = '6.1.4.RELEASE'
+        blazedsVersion = '4.7.3'
     }
-
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+        jcenter()
+    }
     dependencies {
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.3.0.RELEASE')
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
+group 'com.test'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+    jcenter()
+}
 
 apply plugin: 'java'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 
 springBoot {
     mainClass = "Application"
@@ -29,4 +37,9 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web:1.3.0.RELEASE')
     compile('org.springframework.boot:spring-boot-starter-velocity:1.3.0.RELEASE')
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.3'
+    distributionType = org.gradle.api.tasks.wrapper.Wrapper.DistributionType.ALL
 }
